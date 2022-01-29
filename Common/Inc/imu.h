@@ -22,8 +22,10 @@
 
 uint8_t read_register(uint8_t r);
 void write_register(uint8_t r, uint8_t pTxData);
+void imu_setup();
 
-uint16_t read_x();
-uint16_t read_y();
-uint16_t read_z();
-void read_xyz(int16_t *x, int16_t *y, int16_t *z);
+int16_t read_x();
+int16_t read_y();
+int16_t read_z();
+void get_xyz(int16_t *x, int16_t *y, int16_t *z);
+extern int16_t y_r[];
