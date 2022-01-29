@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2022 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "led.h"
+#include "imu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -98,16 +99,48 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	 TOGGLE_LED();
-	 HAL_Delay(500);
-	 TOGGLE_LED();
-	 HAL_Delay(500);
+	write_register(PWR_MGMT_1, (1UL << 7));
+	HAL_Delay(100);
+	write_register(PWR_MGMT_1, (1UL << 7));
+	HAL_Delay(100);
+	for (int i = 0; i < 5; ++i) {
+		uint8_t pRxData[2] = { 0, 0 };
+		read_register(PWR_MGMT_1, pRxData);
+		if (pRxData[0] & (1UL << 6)) {
+			break;
+		}
+	}
+	write_register(PWR_MGMT_1, 0);
+	for (int i = 0; i < 5; ++i) {
+		uint8_t pRxData[2] = { 0, 0 };
+		read_register(WHO_AM_I, pRxData);
+		if (pRxData[0] == 0xAF) {
+			break;
+		}
+	}
+	write_register(PWR_MGMT_2, 0);
+	HAL_Delay(10);
+	while (1) {
+//		TOGGLE_LED();
+//		HAL_Delay(500);
+//		TOGGLE_LED();
+//		HAL_Delay(500);
+
+		uint16_t x = read_x();
+		uint16_t y = read_y();
+		uint16_t z = read_z();
+
+		HAL_Delay(1);
+//		uint8_t pTxData2[2] = { 0b01101011, 0b0 };
+//		uint8_t pRxData2[2] = { 0, 0 };
+//		CS_START();
+//		HAL_SPI_TransmitReceive(&hspi1, pTxData2, pRxData2, 2, HAL_MAX_DELAY);
+//		CS_END();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+	}
   /* USER CODE END 3 */
 }
 
@@ -199,11 +232,10 @@ void PeriphCommonClock_Config(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
