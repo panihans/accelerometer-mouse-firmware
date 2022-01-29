@@ -22,7 +22,7 @@ uint16_t read_x() {
 	read_register(ACCEL_XOUT_H, pRxData);
 	uint8_t pRxData2[1] = { 0 };
 	read_register(ACCEL_XOUT_L, pRxData2);
-	uint16_t x = (pRxData[0] << 8) | pRxData2[0];
+	int16_t x = (pRxData[0] << 8) | pRxData2[0];
 	return x;
 }
 
@@ -31,7 +31,7 @@ uint16_t read_y() {
 	read_register(ACCEL_YOUT_H, pRxData);
 	uint8_t pRxData2[1] = { 0 };
 	read_register(ACCEL_YOUT_L, pRxData2);
-	uint16_t y = (pRxData[0] << 8) | pRxData2[0];
+	int16_t y = (pRxData[0] << 8) | pRxData2[0];
 	return y;
 }
 
@@ -40,6 +40,6 @@ uint16_t read_z() {
 	read_register(ACCEL_ZOUT_H, pRxData);
 	uint8_t pRxData2[1] = { 0 };
 	read_register(ACCEL_ZOUT_L, pRxData2);
-	uint16_t z = (pRxData[0] << 8) | pRxData2[0];
+	int16_t z = (pRxData[0] << 8) | pRxData2[0];
 	return z;
 }

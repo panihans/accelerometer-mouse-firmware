@@ -57,6 +57,13 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+typedef struct Command {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+} Command;
+
+Command feedback;
 
 /* USER CODE END 0 */
 
@@ -126,10 +133,14 @@ int main(void)
 //		TOGGLE_LED();
 //		HAL_Delay(500);
 
-		uint16_t x = read_x();
-		uint16_t y = read_y();
-		uint16_t z = read_z();
+		int16_t x = read_x();
+		int16_t y = read_y();
+		int16_t z = read_z();
 
+		feedback.x = x;
+		feedback.y = y ;
+		feedback.z = z;
+		CDC_Transmit_FS(&feedback, sizeof(feedback));
 		HAL_Delay(1);
 //		uint8_t pTxData2[2] = { 0b01101011, 0b0 };
 //		uint8_t pRxData2[2] = { 0, 0 };
