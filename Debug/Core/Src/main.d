@@ -35,8 +35,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_crs.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi_ex.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim_ex.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h ../USB_Device/App/usb_device.h \
+ ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/tim.h \
+ ../USB_Device/App/usb_device.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
  ../USB_Device/Target/usbd_conf.h ../Core/Inc/gpio.h ../Common/Inc/led.h \
  ../Common/Inc/imu.h ../Common/Inc/buttons.h
@@ -115,11 +118,17 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi_ex.h:
 
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim_ex.h:
+
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h:
 
 ../Core/Inc/spi.h:
 
 ../Core/Inc/main.h:
+
+../Core/Inc/tim.h:
 
 ../USB_Device/App/usb_device.h:
 

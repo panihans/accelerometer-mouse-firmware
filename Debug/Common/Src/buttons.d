@@ -36,6 +36,8 @@ Common/Src/buttons.o: ../Common/Src/buttons.c ../Common/Inc/buttons.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_crs.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi_ex.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim_ex.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h
 
 ../Common/Inc/buttons.h:
@@ -115,5 +117,9 @@ Common/Src/buttons.o: ../Common/Src/buttons.c ../Common/Inc/buttons.h \
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi.h:
 
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_spi_ex.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim_ex.h:
 
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h:
