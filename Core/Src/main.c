@@ -26,6 +26,7 @@
 /* USER CODE BEGIN Includes */
 #include "led.h"
 #include "imu.h"
+#include "buttons.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,9 +59,14 @@ void PeriphCommonClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 typedef struct Command {
-	int16_t x;
-	int16_t y;
-	int16_t z;
+//	int16_t x;
+//	int16_t y;
+//	int16_t z;
+	uint8_t left;
+	uint8_t middle;
+	uint8_t right;
+	uint8_t b4;
+	uint8_t b5;
 } Command;
 
 Command feedback;
@@ -108,7 +114,14 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 	imu_setup();
+
 	while (1) {
+		update_buttons();
+		feedback.left = left_down;
+		feedback.middle = middle_down;
+		feedback.right = right_down;
+		feedback.b4 = b4_down;
+		feedback.b5 = b5_down;
 //		TOGGLE_LED();
 //		HAL_Delay(500);
 //		TOGGLE_LED();
@@ -119,7 +132,7 @@ int main(void)
 //		int16_t y = 0;
 //		int16_t z = 0;
 
-		get_xyz(&feedback.x, &feedback.y, &feedback.z);
+//		get_xyz(&feedback.x, &feedback.y, &feedback.z);
 		CDC_Transmit_FS(&feedback, sizeof(feedback));
 		HAL_Delay(1);
 

@@ -5,12 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Common/Src/buttons.c \
 ../Common/Src/imu.c 
 
 OBJS += \
+./Common/Src/buttons.o \
 ./Common/Src/imu.o 
 
 C_DEPS += \
+./Common/Src/buttons.d \
 ./Common/Src/imu.d 
 
 
@@ -21,7 +24,7 @@ Common/Src/%.o: ../Common/Src/%.c Common/Src/subdir.mk
 clean: clean-Common-2f-Src
 
 clean-Common-2f-Src:
-	-$(RM) ./Common/Src/imu.d ./Common/Src/imu.o
+	-$(RM) ./Common/Src/buttons.d ./Common/Src/buttons.o ./Common/Src/imu.d ./Common/Src/imu.o
 
 .PHONY: clean-Common-2f-Src
 

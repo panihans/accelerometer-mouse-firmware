@@ -61,6 +61,26 @@ void Error_Handler(void);
 #define LED_GPIO_Port GPIOB
 #define SPI1_CS_Pin GPIO_PIN_4
 #define SPI1_CS_GPIO_Port GPIOA
+#define RIGHT_DOWN_Pin GPIO_PIN_0
+#define RIGHT_DOWN_GPIO_Port GPIOB
+#define RIGHT_UP_Pin GPIO_PIN_1
+#define RIGHT_UP_GPIO_Port GPIOB
+#define MIDDLE_DOWN_Pin GPIO_PIN_4
+#define MIDDLE_DOWN_GPIO_Port GPIOE
+#define MIDDLE_UP_Pin GPIO_PIN_10
+#define MIDDLE_UP_GPIO_Port GPIOA
+#define LEFT_UP_Pin GPIO_PIN_15
+#define LEFT_UP_GPIO_Port GPIOA
+#define LEFT_DOWN_Pin GPIO_PIN_3
+#define LEFT_DOWN_GPIO_Port GPIOB
+#define B4_DOWN_Pin GPIO_PIN_4
+#define B4_DOWN_GPIO_Port GPIOB
+#define B4_UP_Pin GPIO_PIN_5
+#define B4_UP_GPIO_Port GPIOB
+#define B5_DOWN_Pin GPIO_PIN_6
+#define B5_DOWN_GPIO_Port GPIOB
+#define B5_UP_Pin GPIO_PIN_7
+#define B5_UP_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -1,3 +1,4 @@
+"./Common/Src/buttons.o"
 "./Common/Src/imu.o"
 "./Core/Src/gpio.o"
 "./Core/Src/main.o"
