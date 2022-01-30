@@ -2,6 +2,7 @@
 
 #include "spi.h"
 
+// register addresses
 #define ACCEL_CONFIG 28
 #define ACCEL_CONFIG_2 29
 #define ACCEL_XOUT_H 59
@@ -15,9 +16,11 @@
 #define PWR_MGMT_2 108
 #define WHO_AM_I 117
 
+// spi start end
 #define CS_START() HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin , 0)
 #define CS_END() HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin , 1)
 
+// read register bit
 #define IMU_READ (1 << 7)
 
 uint8_t read_register(uint8_t r);

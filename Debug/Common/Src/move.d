@@ -1,4 +1,8 @@
-USB_Device/Target/usbd_conf.o: ../USB_Device/Target/usbd_conf.c \
+Common/Src/move.o: ../Common/Src/move.c ../Common/Inc/move.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h \
+ ../Core/Inc/stm32wbxx_hal_conf.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h \
  ../Drivers/CMSIS/Device/ST/STM32WBxx/Include/stm32wbxx.h \
  ../Drivers/CMSIS/Device/ST/STM32WBxx/Include/stm32wb35xx.h \
  ../Drivers/CMSIS/Include/core_cm4.h \
@@ -7,10 +11,6 @@ USB_Device/Target/usbd_conf.o: ../USB_Device/Target/usbd_conf.c \
  ../Drivers/CMSIS/Include/cmsis_gcc.h \
  ../Drivers/CMSIS/Include/mpu_armv7.h \
  ../Drivers/CMSIS/Device/ST/STM32WBxx/Include/system_stm32wbxx.h \
- ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h \
- ../Core/Inc/stm32wbxx_hal_conf.h \
- ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h \
- ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_dma.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_dmamux.h \
@@ -38,15 +38,17 @@ USB_Device/Target/usbd_conf.o: ../USB_Device/Target/usbd_conf.c \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_tim_ex.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../USB_Device/Target/usbd_conf.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+ ../Common/Inc/imu.h ../Core/Inc/spi.h ../Core/Inc/main.h
+
+../Common/Inc/move.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h:
+
+../Core/Inc/stm32wbxx_hal_conf.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h:
+
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h:
 
 ../Drivers/CMSIS/Device/ST/STM32WBxx/Include/stm32wbxx.h:
 
@@ -63,14 +65,6 @@ USB_Device/Target/usbd_conf.o: ../USB_Device/Target/usbd_conf.c \
 ../Drivers/CMSIS/Include/mpu_armv7.h:
 
 ../Drivers/CMSIS/Device/ST/STM32WBxx/Include/system_stm32wbxx.h:
-
-../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h:
-
-../Core/Inc/stm32wbxx_hal_conf.h:
-
-../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h:
-
-../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h:
 
 ../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
 
@@ -126,20 +120,8 @@ USB_Device/Target/usbd_conf.o: ../USB_Device/Target/usbd_conf.c \
 
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h:
 
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../Common/Inc/imu.h:
 
-../USB_Device/Target/usbd_conf.h:
+../Core/Inc/spi.h:
 
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h:
-
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+../Core/Inc/main.h:

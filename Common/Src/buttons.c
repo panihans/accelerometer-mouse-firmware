@@ -7,6 +7,7 @@ uint8_t b4_down = 0;
 uint8_t b5_down = 0;
 
 void update_buttons() {
+	// updates all the button states
  	if (HAL_GPIO_ReadPin(LEFT_UP_GPIO_Port, LEFT_UP_Pin)) {
 		left_down = 0;
 	}
