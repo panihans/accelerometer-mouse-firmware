@@ -60,9 +60,9 @@ void PeriphCommonClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 typedef struct Command {
-//	int16_t x;
-//	int16_t y;
-//	int16_t z;
+	int16_t x;
+	int16_t y;
+	int16_t z;
 	uint8_t left;
 	uint8_t middle;
 	uint8_t right;
@@ -72,11 +72,16 @@ typedef struct Command {
 
 Command feedback;
 
+
+#define min(a, b) (a < b ? a : b)
+#define max(a, b) (a > b ? a : b)
+#define clamp(l, h, val) max(l, min(h, val))
+
 #define ENCODER_MAX 65535
 #define ENCODER_QUADRANT (ENCODER_MAX / 4)
 #define ENCODER_QUADRANT_3 (ENCODER_QUADRANT * 3)
 
-inline int Calculate_Encoder_Diff(uint16_t prev_pos, uint16_t cur_pos) {
+int8_t calculate_encoder_diff(uint32_t prev_pos, uint32_t cur_pos) {
 	int diff = 0;
 	if (prev_pos > ENCODER_QUADRANT_3 && cur_pos < ENCODER_QUADRANT) {
 		// encoder counter overflow from high to low
@@ -88,8 +93,18 @@ inline int Calculate_Encoder_Diff(uint16_t prev_pos, uint16_t cur_pos) {
 		// encoder didn't overflow
 		diff = cur_pos - prev_pos;
 	}
-	return diff;	// clamp(-200, 200, diff) / 2;
+	return (int8_t)clamp(INT8_MIN, INT8_MAX, diff);
 }
+
+typedef struct Mouse_Report {
+	uint8_t buttons;
+	int8_t x;
+	int8_t y;
+	int8_t wheel;
+	uint8_t motion_wakeup;
+} Mouse_Report;
+
+Mouse_Report report;
 
 /* USER CODE END 0 */
 
@@ -136,6 +151,7 @@ int main(void)
 
 	imu_setup();
 
+	uint32_t encoder_prev = 0;
 	while (1) {
 		update_buttons();
 		feedback.left = left_down;
@@ -143,21 +159,19 @@ int main(void)
 		feedback.right = right_down;
 		feedback.b4 = b4_down;
 		feedback.b5 = b5_down;
+		get_xyz(&feedback.x, &feedback.y, &feedback.z);
+//		report.x = feedback.x;
+//		report.y = feedback.y;
 
-		uint32_t encoder = TIM1->CNT;
-		uint8_t buttons = 0;
+		uint32_t encoder_cur = TIM1->CNT;
+		report.wheel = calculate_encoder_diff(encoder_prev, encoder_cur); // needs a larger change to move at all
+		encoder_prev = encoder_cur;
+//		uint8_t buttons = 0;
 //		uint8_t buttons = (2 << left_down) | (1 << middle_down) | (0 << right_down);// | (3 << feedback.b4) | (4 << feedback.b5);
-		if (left_down) {
-			// (1 << 0) = left
-			// (1 << 1) = right
-			// (1 << 2) = mmb
-			// (1 << 3) = back
-			// (1 << 4) = forward
-			buttons = (1 << 4);
-		}
 
-		uint8_t click_report[5] = {buttons, 0, 0, 0, 0};
-		USBD_HID_SendReport(&hUsbDeviceFS, click_report, 5);
+		report.buttons = (left_down << 0) | (right_down << 1) | (middle_down << 2) | (b5_down << 3) | (b4_down << 4);
+
+		USBD_HID_SendReport(&hUsbDeviceFS, &report, 5);
 //		TOGGLE_LED();
 //		HAL_Delay(500);
 //		TOGGLE_LED();
