@@ -63,13 +63,20 @@ typedef struct Command {
 	int16_t x;
 	int16_t y;
 	int16_t z;
-	uint8_t left;
-	uint8_t middle;
-	uint8_t right;
-	uint8_t b4;
-	uint8_t b5;
+//	uint8_t left;
+//	uint8_t middle;
+//	uint8_t right;
+//	uint8_t b4;
+//	uint8_t b5;
 } Command;
 
+typedef struct Accel {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+} Accel;
+
+Accel accel, prev;
 Command feedback;
 
 
@@ -152,17 +159,28 @@ int main(void)
 	imu_setup();
 
 	uint32_t encoder_prev = 0;
+	int i = 0;
 	while (1) {
 		update_buttons();
-		feedback.left = left_down;
-		feedback.middle = middle_down;
-		feedback.right = right_down;
-		feedback.b4 = b4_down;
-		feedback.b5 = b5_down;
-		get_xyz(&feedback.x, &feedback.y, &feedback.z);
-//		report.x = feedback.x;
-//		report.y = feedback.y;
-
+//		feedback.left = left_down;
+//		feedback.middle = middle_down;
+//		feedback.right = right_down;
+//		feedback.b4 = b4_down;
+//		feedback.b5 = b5_down;
+		prev.x = accel.x;
+		prev.y = accel.y;
+		prev.z = accel.z;
+		get_xyz(&accel.x, &accel.y, &accel.z);
+		if (i > 1000) {
+			report.x += accel.x/100;
+			report.y += accel.y/100;
+		}
+		if (i < 10000) {
+			i++;
+		}
+		feedback.x = accel.x;
+		feedback.y = accel.y;
+		feedback.z += accel.x;
 		uint32_t encoder_cur = TIM1->CNT;
 		report.wheel = calculate_encoder_diff(encoder_prev, encoder_cur); // needs a larger change to move at all
 		encoder_prev = encoder_cur;
@@ -171,7 +189,7 @@ int main(void)
 
 		report.buttons = (left_down << 0) | (right_down << 1) | (middle_down << 2) | (b5_down << 3) | (b4_down << 4);
 
-		USBD_HID_SendReport(&hUsbDeviceFS, &report, 5);
+//		USBD_HID_SendReport(&hUsbDeviceFS, &report, 5);
 //		TOGGLE_LED();
 //		HAL_Delay(500);
 //		TOGGLE_LED();
@@ -183,7 +201,7 @@ int main(void)
 //		int16_t z = 0;
 
 //		get_xyz(&feedback.x, &feedback.y, &feedback.z);
-//		CDC_Transmit_FS(&feedback, sizeof(feedback));
+		CDC_Transmit_FS(&feedback, sizeof(feedback));
 		HAL_Delay(1);
 
 //		int16_t x = read_x();

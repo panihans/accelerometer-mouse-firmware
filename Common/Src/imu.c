@@ -96,13 +96,16 @@ int16_t read_z() {
 
 
 // 10-200hz, order 2
-#define FILTER_N 2
-float num[] = { 0.1122, 0, -0.1122 };
-float den[] = { -1, 1.7581, -0.7757 };
+//#define FILTER_N 2
+//float num[] = { 0.1122, 0, -0.1122 };
+//float den[] = { -1, 1.7581, -0.7757 };
 // 15-100hz, order 4
 //#define FILTER_N 4
 //float num[] = { 0.0512, 0, -0.1024, 0, 0.0512 };
 //float den[] = { -1, 3.1673, -3.8396, 2.1405, -0.4706 };
+#define FILTER_N 3
+float num[] = { 0.6156, -1.8468, 1.8468, -0.6156 };
+float den[] = { -1, 2.0478, -1.5057, 0.3713 };
 
 void filter_p(int16_t r[], int16_t f[], int16_t new) {
 	if (new < -10000 || new > 10000) {
