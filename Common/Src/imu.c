@@ -170,13 +170,13 @@ void get_xyz(int16_t *x, int16_t *y, int16_t *z) {
 	// x - accel x return value ptr
 	// y - accel y return value ptr
 	// z - accel z return value ptr
-//	filter_p(x_r, x_f, read_x());
-//	filter_p(y_r, y_f, read_y());
-//	filter_p(z_r, z_f, read_z());
-//	*x = x_f[0];
-//	*y = y_f[0];
-//	*z = z_f[0];
-	*x = read_x() - x_offset;
-	*y = read_y() - y_offset;
-	*z = read_z() - z_offset;
+	filter_p(x_r, x_f, read_x());
+	filter_p(y_r, y_f, read_y());
+	filter_p(z_r, z_f, read_z());
+	*x = x_f[0];
+	*y = y_f[0];
+	*z = z_f[0];
+//	*x = read_x() - x_offset;
+//	*y = read_y() - y_offset;
+//	*z = read_z() - z_offset;
 }

@@ -1,8 +1,8 @@
 imu.c:4:9:read_register	24	static
-imu.c:14:6:write_register	24	static
-imu.c:25:6:imu_setup	40	static
-imu.c:95:9:read_x	16	static
-imu.c:102:9:read_y	16	static
-imu.c:109:9:read_z	16	static
-imu.c:129:6:filter_p	40	static
-imu.c:156:6:get_xyz	24	static
+imu.c:16:6:write_register	24	static
+imu.c:30:6:imu_setup	40	static
+imu.c:102:9:read_x	16	static
+imu.c:110:9:read_y	16	static
+imu.c:118:9:read_z	16	static
+imu.c:139:6:filter_p	40	static
+imu.c:168:6:get_xyz	24	static

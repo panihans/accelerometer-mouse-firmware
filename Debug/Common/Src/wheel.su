@@ -1,2 +1,2 @@
 wheel.c:3:8:calculate_encoder_diff	24	static
-wheel.c:20:9:get_wheel_change	24	static
+wheel.c:23:9:get_wheel_change	24	static
