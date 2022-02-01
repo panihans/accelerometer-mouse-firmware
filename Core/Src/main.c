@@ -31,6 +31,7 @@
 #include "wheel.h"
 #include "move.h"
 #include "math.h"
+#include "usbd_hid.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
