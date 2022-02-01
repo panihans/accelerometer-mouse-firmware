@@ -72,14 +72,6 @@ typedef struct Mouse_Report {
 
 Mouse_Report report;
 
-typedef struct Command {
-	int16_t x;
-	int16_t y;
-	int16_t z;
-} Command;
-
-Command feedback, accel;
-
 /* USER CODE END 0 */
 
 /**
@@ -123,14 +115,6 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	imu_setup();
-
-	double avg_x = 0;
-	double avg_y = 0;
-	uint8_t i = 0;
-#define PREV_C 10
-	int16_t prev_x[PREV_C] = { 0 };
-	int16_t prev_y[PREV_C] = { 0 };
-#define ACCEL_DIV 20.0
 	while (1) {
 		// buttons
 		update_buttons();
@@ -141,93 +125,9 @@ int main(void) {
 		report.wheel = get_wheel_change(TIM1->CNT);
 
 		// mouse x, y
-//		get_mouse_xy(&report.x, &report.y);
-
-		get_xyz(&accel.x, &accel.y, &accel.z);
-
-		if (i == 0) {
-			avg_x = accel.x;
-			avg_y = accel.y;
-			i++;
-		} else {
-			avg_x = 0.5 * accel.x + (1 - 0.5) * avg_x;
-			avg_y = 0.5 * accel.y + (1 - 0.5) * avg_y;
-		}
-
-		for (int l = PREV_C - 2; l >= 0; l--) {
-			prev_x[l + 1] = prev_x[l];
-			prev_y[l + 1] = prev_y[l];
-		}
-		prev_x[0] = avg_x;
-		prev_y[0] = avg_y;
-		int x_reset = 1;
-		int y_reset = 1;
-		for (int k = 0; k < PREV_C; k++) {
-			if (abs(prev_x[k]) > 5) {
-				x_reset = 0;
-			}
-			if (abs(prev_y[k]) > 5) {
-				y_reset = 0;
-			}
-		}
-		if (x_reset) {
-			report.x = 0;
-		}
-		if (y_reset) {
-			report.y = 0;
-		}
-		if (report.x == 0) {
-			if (avg_x < -25) {
-				report.x = -avg_x / ACCEL_DIV;
-			} else if (avg_x > 25) {
-				report.x = -avg_x / ACCEL_DIV;
-			}
-		}
-		if (report.x > 0) {
-			if (avg_x < -25) {
-				if (abs(avg_x / ACCEL_DIV) > abs(report.x)) {
-					report.x = -avg_x / ACCEL_DIV;
-				}
-			}
-		}
-		if (report.x < 0) {
-			if (avg_x > 25) {
-				if (abs(avg_x / ACCEL_DIV) > abs(report.x)) {
-					report.x = -avg_x / ACCEL_DIV;
-				}
-			}
-		}
-
-		if (report.y == 0) {
-			if (avg_y < -25) {
-				report.y = avg_y / ACCEL_DIV;
-			} else if (avg_y > 25) {
-				report.y = avg_y / ACCEL_DIV;
-			}
-		}
-		if (report.y < 0 || report.y > 0) {
-			if (avg_y < -25) {
-				if (abs(avg_y / ACCEL_DIV) > abs(report.y)) {
-					report.y = avg_y / ACCEL_DIV;
-				}
-			}
-		}
-		if (report.y > 0) {
-			if (avg_y > 25) {
-				if (abs(avg_y / ACCEL_DIV) > abs(report.y)) {
-					report.y = avg_y / ACCEL_DIV;
-				}
-			}
-		}
-
-		feedback.x = accel.x;
-		feedback.y = avg_x;
-		feedback.z = report.x * 100;
-//		feedback.z = avg_x;
-//		feedback.x = x_reset;
+		get_mouse_xy(&report.x, &report.y);
 
 		USBD_HID_SendReport(&hUsbDeviceFS, &report, 4);
-//		CDC_Transmit_FS(&feedback, sizeof(feedback));
 		HAL_Delay(1);
 		/* USER CODE END WHILE */
 

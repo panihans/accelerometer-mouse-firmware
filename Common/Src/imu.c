@@ -80,23 +80,23 @@ void imu_setup() {
 		}
 	}
 
-	//accel offset calculation
-	int16_t x = 0;
-	int16_t y = 0;
-	int16_t z = 0;
-	int32_t xsum = 0;
-	int32_t ysum = 0;
-	int32_t zsum = 0;
-	for (int i = 0; i < ACCEL_CALIBRATION_N; ++i) {
-		get_xyz(&x, &y, &z);
-		xsum += x;
-		ysum += y;
-		zsum += z;
-		HAL_Delay(1);
-	}
-	x_offset = xsum / ACCEL_CALIBRATION_N;
-	y_offset = ysum / ACCEL_CALIBRATION_N;
-	z_offset = zsum / ACCEL_CALIBRATION_N;
+//	//accel offset calculation
+//	int16_t x = 0;
+//	int16_t y = 0;
+//	int16_t z = 0;
+//	int32_t xsum = 0;
+//	int32_t ysum = 0;
+//	int32_t zsum = 0;
+//	for (int i = 0; i < ACCEL_CALIBRATION_N; ++i) {
+//		get_xyz(&x, &y, &z);
+//		xsum += x;
+//		ysum += y;
+//		zsum += z;
+//		HAL_Delay(1);
+//	}
+//	x_offset = xsum / ACCEL_CALIBRATION_N;
+//	y_offset = ysum / ACCEL_CALIBRATION_N;
+//	z_offset = zsum / ACCEL_CALIBRATION_N;
 }
 
 int16_t read_x() {
