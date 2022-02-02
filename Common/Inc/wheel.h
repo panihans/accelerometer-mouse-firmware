@@ -11,4 +11,3 @@
 #define ENCODER_QUADRANT_3 (ENCODER_QUADRANT * 3)
 
 int8_t get_wheel_change(uint32_t encoder_timer_count);
-void update_wheel(int8_t *wheel, uint32_t encoder_timer_count);

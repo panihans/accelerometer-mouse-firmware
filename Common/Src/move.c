@@ -10,7 +10,7 @@ typedef struct Accel {
 
 Accel accel;
 
-#define ACCEL_DIV 20.0
+#define ACCEL_DIV 50.0
 #define SIG_ACCEL 25
 
 uint8_t i = 0;

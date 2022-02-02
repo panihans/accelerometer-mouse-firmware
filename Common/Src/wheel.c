@@ -33,18 +33,3 @@ int8_t get_wheel_change(uint32_t encoder_timer_count) {
 	}
 	return 0;
 }
-
-#define WHEEL_HOLD 10
-int wheel_t = 0;
-void update_wheel(int8_t *wheel, uint32_t encoder_timer_count) {
-	// updates wheel
-	// wheel - wheel value pointer
-	// encoder_timer_count - current wheel encoder timer count
-	int new_wheel = get_wheel_change(TIM1->CNT);
-	if (*wheel == 0 || wheel_t > WHEEL_HOLD) {
-		*wheel = new_wheel;
-		wheel_t = 0;
-	} else {
-		wheel_t++;
-	}
-}
