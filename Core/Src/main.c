@@ -116,6 +116,7 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	imu_setup();
+	int wheel_t = 0;
 	while (1) {
 		// buttons
 		update_buttons();
@@ -123,7 +124,7 @@ int main(void) {
 				| (middle_down << 2) | (b5_down << 3) | (b4_down << 4);
 
 		// wheel
-		report.wheel = get_wheel_change(TIM1->CNT);
+		update_wheel(&report.wheel, TIM1->CNT);
 
 		// mouse x, y
 		get_mouse_xy(&report.x, &report.y);

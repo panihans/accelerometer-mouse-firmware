@@ -18,13 +18,33 @@ int8_t calculate_encoder_diff(uint32_t prev_pos, uint32_t cur_pos) {
 	return (int8_t) clamp(INT8_MIN, INT8_MAX, diff);
 }
 
-
 uint32_t encoder_prev = 0;
-uint8_t get_wheel_change(uint32_t encoder_timer_count) {
+int8_t get_wheel_change(uint32_t encoder_timer_count) {
 	// returns wheel change -1, 0 or 1 when compared to the last wheel position
 	// encoder_timer_count - current wheel encoder timer count
 	uint32_t encoder_cur = encoder_timer_count;
-	uint8_t diff = clamp(-1, 1, calculate_encoder_diff(encoder_prev, encoder_cur));
+	int8_t diff = calculate_encoder_diff(encoder_prev, encoder_cur);
 	encoder_prev = encoder_cur;
-	return diff;
+	if (diff < 0) {
+		return -1;
+	}
+	if (diff > 0) {
+		return 1;
+	}
+	return 0;
+}
+
+#define WHEEL_HOLD 10
+int wheel_t = 0;
+void update_wheel(int8_t *wheel, uint32_t encoder_timer_count) {
+	// updates wheel
+	// wheel - wheel value pointer
+	// encoder_timer_count - current wheel encoder timer count
+	int new_wheel = get_wheel_change(TIM1->CNT);
+	if (*wheel == 0 || wheel_t > WHEEL_HOLD) {
+		*wheel = new_wheel;
+		wheel_t = 0;
+	} else {
+		wheel_t++;
+	}
 }
